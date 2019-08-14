@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Provider } from './components/Context';
+import Contact from './components/Contacts/Contact';
+import AddContact from './components/Contacts/AddContact';
+import EditContact from './components/Contacts/EditContact';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import About from './components/pages/About';
+import Navbar from './components/pages/Navbar';
+import NotFound from './components/pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider>
+      <Router>
+        <div>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={Contact} />
+            <Route exact path='/contact/add' component={AddContact} />
+            <Route exact path='/contact/edit/:id' component={EditContact} />
+            <Route exact path='/about' component={About} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
+  )
 }
 
 export default App;
